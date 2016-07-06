@@ -1,0 +1,13 @@
+---
+- name: Check if Atom  is installed
+  command: dpkg-query -l atom
+  failed_when: False
+  register: deb_check
+
+- name: Download Atom
+  get_url: url="https://atom.io/download/deb" dest="/tmp/atom.deb"
+  when: deb_check.stdout.find('no packages found') != -1
+
+- name: Install Atom
+  become: yes
+  apt: deb="/tmp/atom.deb"
