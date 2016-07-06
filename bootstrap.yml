@@ -3,6 +3,5 @@
   connection: local
   roles:
     - shell
-    - vim
-    - atom
     - jvm
+    - ide

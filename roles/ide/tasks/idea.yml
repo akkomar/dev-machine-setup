@@ -1,0 +1,15 @@
+---
+- name: Download Idea
+  get_url: url="https://download.jetbrains.com/idea/ideaIC-2016.1.3.tar.gz" dest="/tmp/ideaIC-2016.1.3.tar.gz"
+
+- name: Create installation directory
+  file:
+    state=directory
+    mode=0755
+    dest=~/dev_tools
+
+- name: Unarchive Idea
+  unarchive:
+    copy=no
+    src=/tmp/ideaIC-2016.1.3.tar.gz
+    dest=~/dev_tools
