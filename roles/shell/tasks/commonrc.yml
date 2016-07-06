@@ -1,0 +1,10 @@
+---
+- name: Creating commonrc file
+  become: yes
+  file: path=/etc/commonrc mode=0755 state=touch
+
+- name: Sourcing commonrc in bashrc
+  lineinfile: dest=~/.bashrc line="source /etc/commonrc" state=present
+
+- name: Sourcing commonrc in zshrc
+  lineinfile: dest=~/.zshrc line="source /etc/commonrc" state=present
