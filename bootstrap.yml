@@ -1,0 +1,6 @@
+- name: "Install all tools"
+  hosts: localhost
+  connection: local
+  roles:
+    - vim
+    - git
