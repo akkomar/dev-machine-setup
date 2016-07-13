@@ -1,0 +1,24 @@
+---
+- get_url: url={{ maven_url }} dest=/tmp/maven.tgz
+- get_url: url={{ maven_url }}.md5 dest=/tmp/maven.md5
+
+- command: echo " "{{ maven_url }} >> /tmp/maven.md5 && md5sum -c /tmp/maven.md5
+
+- file: path={{ maven_prefix }} state=directory
+  become: yes
+
+- unarchive: >
+    copy=no
+    src=/tmp/maven.tgz
+    dest={{ maven_prefix }}
+  become: yes
+  
+- file: path=/tmp/maven.tgz state=absent
+- file: path=/tmp/maven.md5 state=absent
+
+- become: yes
+  lineinfile:
+    dest: /etc/commonrc
+    regexp: "^export PATH=.*apache-maven.*"
+    line: "export PATH={{maven_dir}}/bin:$PATH"
+    state: present

@@ -1,3 +1,4 @@
 - include: java.yml
 - include: scala.yml
 - include: sbt.yml
+- include: maven.yml
