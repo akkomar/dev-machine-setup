@@ -9,14 +9,6 @@
   become: yes
   command: tar -xvzf /tmp/{{scala_archive_file}} chdir=/usr/lib/scala creates=/usr/lib/scala/{{scala_version_name}}
 
-# - name: Scala | Set the permissions on the Scala binaries
-  # file:
-  #   path: "/usr/local/scala/scala-{{item}}/bin"
-  #   state: directory
-  #   mode: 0755
-  #   recurse: yes
-  # with_items: scala_versions
-
 - name: Updating symbolic link to default Scala version
   become: yes
   file:
@@ -37,17 +29,3 @@
       line: "export SCALA_HOME=/usr/lib/scala/scala-default"
     - regexp: "^export PATH=.*SCALA_HOME.*"
       line: "export PATH=$PATH:$SCALA_HOME/bin"
-
-# - name: Scala | Inform the system where Scala is located
-#   command: "{{item}}"
-#   with_items:
-#     - update-alternatives --install "/usr/bin/scala" "scala" "/usr/local/scala/default/bin/scala" 1
-#     - update-alternatives --install "/usr/bin/scalac" "scalac" "/usr/local/scala/default/bin/scalac" 1
-#     - update-alternatives --install "/usr/bin/scalap" "scalap" "/usr/local/scala/default/bin/scalap" 1
-#
-# - name: Scala | Set the system default for Scala
-#   command: "{{item}}"
-#   with_items:
-#     - update-alternatives --set scala /usr/local/scala/default/bin/scala
-#     - update-alternatives --set scalac /usr/local/scala/default/bin/scalac
-#     - update-alternatives --set scalap /usr/local/scala/default/bin/scalap
